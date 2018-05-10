@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link href="../css/h5.css" rel="stylesheet">
+    <link href="../css/nsMovie.css" rel="stylesheet">
+    <link href="../css/nsMovieLoad.css" rel="stylesheet">
+    <title>ns movie</title>
+</head>
+
+<body>
+    <header class="nsMovieHeader">NS Solution 电影</header>
+    <div id="nsMovieInfoContainer">
+        <div class="nsMovieSubTitleRow">
+            <div id="nsMovieHot" class="nsMovieSubTitle"><span>热门电影</span></div>
+            <div id="nsMovieLatest" class="nsMovieSubTitle"><span>近期上映</span></div>
+            <div id="nsMovieTop" class="nsMovieSubTitle"><span>top电影</span></div>
+        </div>
+        <div id="nsMovieInfoListDiv" class="nsMovieInfoList"></div>
+        <div>
+            <div class="loading-1 loadMore" id="loadingDiv">
+                <i></i>
+            </div>
+            <div class="loadMore" id="nomalLoadDiv" style="display: none;">
+                <span id="loadMore">加载更多</span>
+            </div>
+            <div class="backTop">
+                <img id="backTop" width="60" height="60" src="../img/backTop.jpg">
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../js/lib/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/lib/ejs-h5mod.js"></script>
+    <script type="text/javascript" src="../js/lib/h5.dev.js"></script>
+    <script type="text/javascript" src="../js/nsMovieController.js"></script>
+</body>
+
+</html>
