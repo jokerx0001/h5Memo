@@ -34,39 +34,16 @@
     height: 35px;
 }
 
-.nsMemoInfoDetail {
-    background-color: grey;
-    color: white;
-    text-align: left;
-    width: 265px;
-    margin-top: 20px;
-    margin-left: 40%;
-    margin-right: 50%;
-    padding-top: 9px;
-    padding-left: 12px;
-    padding-bottom: 10px;
-}
-
-.nsMemoInfoDetailImg {
-	margin-top: 5px;
-}
-
-.nsMemoInfoDetailTitle {
-    font-weight: bold;
-}
-
 .nsMemoInfoList {
-	text-align: center;
+
 }
 
-.loadMore {
-	text-align: center;
-	cursor: pointer;
-    display: inline-block;
-    margin-left: 48%;
+.memoSaveBtn {
+    background-color: rgb(91,192,222);
+    color: white;
+    border:1px solid;
+    border-radius:10px;
+    width: 100%;
+    height: 35px;
     margin-top: 20px;
-}
-
-.saveBtn {
-    background-color: rgb(173,216,230)
 }
