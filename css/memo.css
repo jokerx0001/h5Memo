@@ -1,27 +1,37 @@
 
+.memoBody {
+    width: 600px;
+}
+
 .nsMemoHeader {
-    background-color: black;
-    font-size: 40pt;
-    font-weight: 5px;
+    background-color: rgb(173,216,230);
+    height: 60px;
+}
+
+.nsLogo {
+    margin-left: 10px;
+}
+
+.nsMemoTitle {
+    font-size: 25pt;
     color: white;
-    text-align: center;
+    margin-left: 107px;
 }
 
-.nsMemoSubTitle {
-	background-color: inherit;
-	color: grey;
-    text-align: center;
-    display: inline-block;
-    width: 33%;
-    cursor: pointer;
+.memoInput {
+    width: 490px;
+    height: 30px;
+    margin-left: 10px;
+    margin-top: 20px;
 }
 
-.nsMemoSubTitle:hover {
-	color: white;
-}
-
-.nsMemoSubTitleRow {
-	background-color: black;
+.memoSubmitBtn {
+    background-color: rgb(173,216,230);	
+    color: white;
+    border:1px solid;
+    border-radius:10px;
+    width: 80px;
+    height: 35px;
 }
 
 .nsMemoInfoDetail {
@@ -57,9 +67,6 @@
     margin-top: 20px;
 }
 
-.backTop {
-    text-align: center;
-    cursor: pointer;
-    display: inline-block;
-    margin-left: 93%;
+.saveBtn {
+    background-color: rgb(173,216,230)
 }

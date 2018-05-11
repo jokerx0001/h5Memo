@@ -8,13 +8,15 @@
     <title>ns memo</title>
 </head>
 
-<body>
-    <header class="nsMemoHeader">NS Solution 电影</header>
+<body class="memoBody">
+    <header class="nsMemoHeader">
+        <img src="../img/logo.png" class="nsLogo">
+        <span class="nsMemoTitle">记事本</span>
+    </header>
     <div id="nsMemoInfoContainer">
         <div class="nsMemoSubTitleRow">
-            <div id="nsMemoHot" class="nsMemoSubTitle"><span>热门电影</span></div>
-            <div id="nsMemoLatest" class="nsMemoSubTitle"><span>近期上映</span></div>
-            <div id="nsMemoTop" class="nsMemoSubTitle"><span>top电影</span></div>
+            <input type="text" id="memoInput" name="memoInput" class="memoInput">
+            <button class="memoSubmitBtn">提交</button>
         </div>
         <div id="nsMemoInfoListDiv" class="nsMemoInfoList"></div>
         <div>
