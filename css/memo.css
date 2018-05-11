@@ -1,5 +1,5 @@
 
-.nsMovieHeader {
+.nsMemoHeader {
     background-color: black;
     font-size: 40pt;
     font-weight: 5px;
@@ -7,7 +7,7 @@
     text-align: center;
 }
 
-.nsMovieSubTitle {
+.nsMemoSubTitle {
 	background-color: inherit;
 	color: grey;
     text-align: center;
@@ -16,15 +16,15 @@
     cursor: pointer;
 }
 
-.nsMovieSubTitle:hover {
+.nsMemoSubTitle:hover {
 	color: white;
 }
 
-.nsMovieSubTitleRow {
+.nsMemoSubTitleRow {
 	background-color: black;
 }
 
-.nsMovieInfoDetail {
+.nsMemoInfoDetail {
     background-color: grey;
     color: white;
     text-align: left;
@@ -37,15 +37,15 @@
     padding-bottom: 10px;
 }
 
-.nsMovieInfoDetailImg {
+.nsMemoInfoDetailImg {
 	margin-top: 5px;
 }
 
-.nsMovieInfoDetailTitle {
+.nsMemoInfoDetailTitle {
     font-weight: bold;
 }
 
-.nsMovieInfoList {
+.nsMemoInfoList {
 	text-align: center;
 }
 
