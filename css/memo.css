@@ -1,10 +1,9 @@
-
 .memoBody {
     width: 600px;
 }
 
 .nsMemoHeader {
-    background-color: rgb(173,216,230);
+    background-color: rgb(173, 216, 230);
     height: 60px;
 }
 
@@ -26,23 +25,44 @@
 }
 
 .memoSubmitBtn {
-    background-color: rgb(173,216,230);	
+    background-color: rgb(173, 216, 230);
     color: white;
-    border:1px solid;
-    border-radius:10px;
+    border: 1px solid;
+    border-radius: 10px;
     width: 80px;
     height: 35px;
 }
 
-.nsMemoInfoList {
-
+.nsMemoInfoSub {
+    background-color: rgb(173, 216, 230);    
+    height: 30px;
+    margin-top: 20px;
 }
 
-.memoSaveBtn {
-    background-color: rgb(91,192,222);
+.nsMemoInfoSubTitle {
+    display: inline-block;
     color: white;
-    border:1px solid;
-    border-radius:10px;
+    margin-top: 2.5px;
+    margin-left: 10px;
+}
+
+.bottomArrowDiv {
+    display: inline-block;
+    border-right: 1.5px solid white;
+    border-bottom: 1.5px solid white;
+    width: 12px;
+    height: 12px;
+    transform: rotate(45deg);
+    margin-left: 470px;
+}
+
+.nsMemoInfoList {}
+
+.memoSaveBtn {
+    background-color: rgb(91, 192, 222);
+    color: white;
+    border: 1px solid;
+    border-radius: 10px;
     width: 100%;
     height: 35px;
     margin-top: 20px;

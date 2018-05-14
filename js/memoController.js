@@ -1,60 +1,73 @@
 /**
- * nsMovieController.js
+ * nsMemoController.js
  */
 
-// refreshFlg
-var refreshFlg = false;
+// todoListShowFlg
+var todoListShowFlg = false;
 
-var nsMovieSize = 0;
+// doneFlg
+var doneListShowFlg = false;
 
-var nsMovieApiNo = 1;
+// cancleFlg
+var cancleListShowFlg = false;
 
-var obsAry = h5.core.data.createObservableArray();
+var obsAryTodo = h5.core.data.createObservableArray();
 
-var doubanApiArr = ["https://api.douban.com/v2/movie/in_theaters", "https://api.douban.com/v2/movie/coming_soon", "https://api.douban.com/v2/movie/top250"];
+var obsAryDone = h5.core.data.createObservableArray();
 
-var nsMovieLogic = {
+var obsAryCancle = h5.core.data.createObservableArray();
 
-    __name: "NsMovieLogic",
+var nsMemoLogic = {
 
-    getNsMovieInfo: function(doubanApiNo, paramStart, paramCount) {
+    __name: "nsMemoLogic",
 
-        this.__getNsMovieInfo(doubanApiNo, paramStart, paramCount).done(function(data) {
+    getnsMemoInfo: function(doubanApiNo, paramStart, paramCount) {
+
+        this.__getnsMemoInfo().done(function(data) {
             // get film info
             data.subjects.forEach((item) => {
-                obsAry.push({
-                    title: item.title,
-                    original_title: item.original_title,
-                    year: item.year,
-                    rating: item.rating.average,
-                    src: item.images.large,
-                });
-            });
 
-            refreshFlg = false;
-            $("#loadingDiv").css("display", "none");
-            $("#nomalLoadDiv").css("display", "inline-block");
+                if (item.status === 0) {
+
+                    obsAryTodo.push({
+                        id: item.id,
+                        status: item.status,
+                        content: item.content
+                    });
+                } else if (item.status === 1) {
+
+                    obsAryDone.push({
+                        id: item.id,
+                        status: item.status,
+                        content: item.content
+                    });
+                } else if (item.status === 2) {
+
+                    obsAryCancle.push({
+                        id: item.id,
+                        status: item.status,
+                        content: item.content
+                    });
+                }
+
+            });
         }).fail(function(error) {
-            alert("get movie info failed" + errMsg);
+            alert("get memo info failed" + errMsg);
         });
     },
 
-    __getNsMovieInfo: function(doubanApiNo, paramStart, paramCount) {
+    __getnsMemoInfo: function() {
 
-        var promise = h5.ajax(doubanApiArr[doubanApiNo], {
+        var promise = h5.ajax("../json/data.json", {
             type: 'POST',
             dataType: 'jsonp',
-            data: {
-                start: paramStart,
-                count: paramCount
-            }
         });
 
         return promise;
-    }, 
+    },
 
     deleteObservableArray: function(observableArray) {
-        
+
         var obsArylen = observableArray.length;
         for (var i = 0; i < obsArylen; i++) {
             observableArray.pop();
@@ -64,83 +77,83 @@ var nsMovieLogic = {
 
 $(function() {
 
-    var nsMovieController = {
+    var nsMemoController = {
 
-        __name: "nsMovieController",
+        __name: "nsMemoController",
 
-        __templates: "../ejs/nsMovie.ejs",
+        __templates: "../ejs/nsMemo.ejs",
         __formController: h5.ui.FormController,
-        nsMovieLogic: nsMovieLogic,
+        nsMemoLogic: nsMemoLogic,
 
         __ready: function() {
 
             // view bind
-            this.view.append("#nsMovieInfoListDiv", "nsMovieInfoListEjs");
+            this.view.append("#nsMemoInfoListDiv", "nsMemoInfoListEjs");
 
             // data bind
-            h5.core.view.bind($("#nsMovieInfoListDiv"), {
-                nsMovieInfoList: obsAry
+            h5.core.view.bind($("#nsMemoInfoListDiv"), {
+                nsMemoInfoList: obsAry
             });
         },
         __init: function() {
-            refreshFlg = true;
-            this.nsMovieLogic.getNsMovieInfo(nsMovieApiNo, 0, 20);
-            nsMovieSize = 20;
+            todoListShowFlg = true;
+            this.nsMemoLogic.getnsMemoInfo(nsMemoApiNo, 0, 20);
+            nsMemoSize = 20;
         },
         "#loadMore click": function() {
 
-        	if (!refreshFlg) {
-        		refreshFlg = true;
+            if (!todoListShowFlg) {
+                todoListShowFlg = true;
                 $("#nomalLoadDiv").css("display", "none");
                 $("#loadingDiv").css("display", "inline-block");
-        		this.nsMovieLogic.getNsMovieInfo(nsMovieApiNo, nsMovieSize + 1, nsMovieSize + 21);
-                nsMovieSize = nsMovieSize + 20;
-        	}        
+                this.nsMemoLogic.getnsMemoInfo(nsMemoApiNo, nsMemoSize + 1, nsMemoSize + 21);
+                nsMemoSize = nsMemoSize + 20;
+            }
         },
-        "#nsMovieHot click": function() {
+        "#nsMemoHot click": function() {
 
-            if (!refreshFlg) {
-                refreshFlg = true;
+            if (!todoListShowFlg) {
+                todoListShowFlg = true;
                 $("#nomalLoadDiv").css("display", "none");
                 $("#loadingDiv").css("display", "inline-block");
-                this.nsMovieLogic.deleteObservableArray(obsAry);
-                nsMovieApiNo = 0;
-                this.nsMovieLogic.getNsMovieInfo(nsMovieApiNo, 0, 20);
-                nsMovieSize = 20;
-            }        
+                this.nsMemoLogic.deleteObservableArray(obsAry);
+                nsMemoApiNo = 0;
+                this.nsMemoLogic.getnsMemoInfo(nsMemoApiNo, 0, 20);
+                nsMemoSize = 20;
+            }
         },
-        "#nsMovieLatest click": function() {
+        "#nsMemoLatest click": function() {
 
-            if (!refreshFlg) {
-                refreshFlg = true;
+            if (!todoListShowFlg) {
+                todoListShowFlg = true;
                 $("#nomalLoadDiv").css("display", "none");
                 $("#loadingDiv").css("display", "inline-block");
-                this.nsMovieLogic.deleteObservableArray(obsAry);
-                nsMovieApiNo = 1;
-                this.nsMovieLogic.getNsMovieInfo(nsMovieApiNo, 0, 20);
-                nsMovieSize = 20;
-            }        
+                this.nsMemoLogic.deleteObservableArray(obsAry);
+                nsMemoApiNo = 1;
+                this.nsMemoLogic.getnsMemoInfo(nsMemoApiNo, 0, 20);
+                nsMemoSize = 20;
+            }
         },
-        "#nsMovieTop click": function() {
+        "#nsMemoTop click": function() {
 
-            if (!refreshFlg) {
-                refreshFlg = true;
+            if (!todoListShowFlg) {
+                todoListShowFlg = true;
                 $("#nomalLoadDiv").css("display", "none");
                 $("#loadingDiv").css("display", "inline-block");
-                this.nsMovieLogic.deleteObservableArray(obsAry);
-                nsMovieApiNo = 2;
-                this.nsMovieLogic.getNsMovieInfo(nsMovieApiNo, 0, 20);
-                nsMovieSize = 20;
-            }        
+                this.nsMemoLogic.deleteObservableArray(obsAry);
+                nsMemoApiNo = 2;
+                this.nsMemoLogic.getnsMemoInfo(nsMemoApiNo, 0, 20);
+                nsMemoSize = 20;
+            }
         },
-        "#backTop click": function backToTop() {  
-            $('html,body').animate({  
-                scrollTop: 0  
-            }, 600);  
+        "#backTop click": function backToTop() {
+            $('html,body').animate({
+                scrollTop: 0
+            }, 600);
         }
     };
 
-    h5.core.controller("#nsMovieInfoContainer", nsMovieController);
+    h5.core.controller("#nsMemoInfoContainer", nsMemoController);
 });
 
 // HTML5/hifive 编程技术能力水平考试（编程题）
