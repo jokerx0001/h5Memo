@@ -56,7 +56,9 @@
     margin-left: 470px;
 }
 
-.nsMemoInfoList {}
+.nsMemoInfoList {
+    border-bottom: 1px solid balck;
+}
 
 .memoSaveBtn {
     background-color: rgb(91, 192, 222);
@@ -66,4 +68,8 @@
     width: 100%;
     height: 35px;
     margin-top: 20px;
+}
+
+.nsMemoItemDiv {
+    display: inline-block;
 }

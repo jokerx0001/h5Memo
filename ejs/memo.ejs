@@ -1,11 +1,17 @@
-<script type="text/ejs" id="nsMovieInfoListEjs">
-<div data-h5-loop-context="nsMovieInfoList">
-    <div class="nsMovieInfoDetail">
-        <div><span class="nsMovieInfoDetailTitle">电影名：</span><span data-h5-bind="title"></span></div>
-        <div><span class="nsMovieInfoDetailTitle">英文名：</span><span data-h5-bind="original_title"></span></div>
-        <div><span class="nsMovieInfoDetailTitle">出品年限：</span><span data-h5-bind="year"></span></div>
-        <div><span class="nsMovieInfoDetailTitle">评分：</span><span data-h5-bind="rating"></span></div>
-        <div class="nsMovieInfoDetailImg"><img data-h5-bind="attr(src): src" width="250" height="350" alt="暂无图片"></div>
+<script type="text/ejs" id="nsMemoTodoListEjs">
+<div data-h5-loop-context="nsMemoTodoList">
+    <div class="nsMemoInfoList">
+        <div class="nsMemoItemDiv">
+            <input type="hidden" data-h5-context="id" />
+            <input type="checkbox" name="todoChkBox" />
+            <input type="hidden" data-h5-context="content" />
+        </div>
+        <div class="nsMemoItemDiv">
+            <span data-h5-context="content"></span>
+        </div>
+        <div class="nsMemoItemDiv">
+            <input type="button" name="todoBtn" value="取消" />
+        </div>
     </div>
 </div>
 </script>

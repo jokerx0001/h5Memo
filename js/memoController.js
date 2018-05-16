@@ -17,11 +17,13 @@ var obsAryDone = h5.core.data.createObservableArray();
 
 var obsAryCancle = h5.core.data.createObservableArray();
 
+var maxId = 0;
+
 var nsMemoLogic = {
 
     __name: "nsMemoLogic",
 
-    getnsMemoInfo: function(doubanApiNo, paramStart, paramCount) {
+    getnsMemoInfo: function() {
 
         this.__getnsMemoInfo().done(function(data) {
             // get film info
@@ -50,6 +52,11 @@ var nsMemoLogic = {
                     });
                 }
 
+                if (item.id > maxId) {
+
+                    maxId = item.id;
+                }
+
             });
         }).fail(function(error) {
             alert("get memo info failed" + errMsg);
@@ -66,12 +73,81 @@ var nsMemoLogic = {
         return promise;
     },
 
-    deleteObservableArray: function(observableArray) {
+    __remove: function(id, obserArr) {
 
-        var obsArylen = observableArray.length;
-        for (var i = 0; i < obsArylen; i++) {
-            observableArray.pop();
+        for (var i = 0; i < obserArr.length; i++) {
+
+            var item = obserArr[i];
+            var itemId = item.get('id');
+
+            if (itemId === parseInt(id, 10)) {
+                obserArr.splice(i, 1);
+                break;
+            }
         }
+    },
+
+    addNewMemo: function(memo) {
+
+        obsAryTodo.push({
+            id: maxId,
+            status: 0,
+            content: memo
+        });
+
+        maxId++;
+    },
+
+    chkTodoItem: function(obj) {
+
+        var tempId = obj.prev().val();
+
+        obsAryDone.push({
+            id: parseInt(tempId, 10),
+            status: 1,
+            content: obj.next().val()
+        });
+
+        this.__remove(tempId, obsAryTodo);
+    },
+
+    cancleItem: function(obj) {
+
+        var tempId = obj.prev().val();
+
+        obsAryCancle.push({
+            id: parseInt(tempId, 10),
+            status: 2,
+            content: obj.next().val()
+        });
+
+        this.__remove(tempId, obsAryTodo);
+    },
+
+    chkDoneItem: function(obj) {
+
+        var tempId = obj.prev().val();
+
+        obsAryTodo.push({
+            id: parseInt(tempId, 10),
+            status: 0,
+            content: obj.next().val()
+        });
+
+        this.__remove(tempId, obsAryDone);
+    },
+
+    RestoreItem: function(obj) {
+
+        var tempId = obj.prev().val();
+
+        obsAryTodo.push({
+            id: parseInt(tempId, 10),
+            status: 0,
+            content: obj.next().val()
+        });
+
+        this.__remove(tempId, obsAryCancle);
     }
 }
 
@@ -88,119 +164,14 @@ $(function() {
         __ready: function() {
 
             // view bind
-            this.view.append("#nsMemoInfoListDiv", "nsMemoInfoListEjs");
+            this.view.append("#nsMemoTodoInfoList", "nsMemoTodoListEjs");
 
             // data bind
-            h5.core.view.bind($("#nsMemoInfoListDiv"), {
-                nsMemoInfoList: obsAry
+            h5.core.view.bind($("#nsMemoTodoListEjs"), {
+                nsMemoTodoList: obsAryTodo
             });
-        },
-        __init: function() {
-            todoListShowFlg = true;
-            this.nsMemoLogic.getnsMemoInfo(nsMemoApiNo, 0, 20);
-            nsMemoSize = 20;
-        },
-        "#loadMore click": function() {
-
-            if (!todoListShowFlg) {
-                todoListShowFlg = true;
-                $("#nomalLoadDiv").css("display", "none");
-                $("#loadingDiv").css("display", "inline-block");
-                this.nsMemoLogic.getnsMemoInfo(nsMemoApiNo, nsMemoSize + 1, nsMemoSize + 21);
-                nsMemoSize = nsMemoSize + 20;
-            }
-        },
-        "#nsMemoHot click": function() {
-
-            if (!todoListShowFlg) {
-                todoListShowFlg = true;
-                $("#nomalLoadDiv").css("display", "none");
-                $("#loadingDiv").css("display", "inline-block");
-                this.nsMemoLogic.deleteObservableArray(obsAry);
-                nsMemoApiNo = 0;
-                this.nsMemoLogic.getnsMemoInfo(nsMemoApiNo, 0, 20);
-                nsMemoSize = 20;
-            }
-        },
-        "#nsMemoLatest click": function() {
-
-            if (!todoListShowFlg) {
-                todoListShowFlg = true;
-                $("#nomalLoadDiv").css("display", "none");
-                $("#loadingDiv").css("display", "inline-block");
-                this.nsMemoLogic.deleteObservableArray(obsAry);
-                nsMemoApiNo = 1;
-                this.nsMemoLogic.getnsMemoInfo(nsMemoApiNo, 0, 20);
-                nsMemoSize = 20;
-            }
-        },
-        "#nsMemoTop click": function() {
-
-            if (!todoListShowFlg) {
-                todoListShowFlg = true;
-                $("#nomalLoadDiv").css("display", "none");
-                $("#loadingDiv").css("display", "inline-block");
-                this.nsMemoLogic.deleteObservableArray(obsAry);
-                nsMemoApiNo = 2;
-                this.nsMemoLogic.getnsMemoInfo(nsMemoApiNo, 0, 20);
-                nsMemoSize = 20;
-            }
-        },
-        "#backTop click": function backToTop() {
-            $('html,body').animate({
-                scrollTop: 0
-            }, 600);
         }
     };
 
     h5.core.controller("#nsMemoInfoContainer", nsMemoController);
 });
-
-// HTML5/hifive 编程技术能力水平考试（编程题）
-
-// 记事本 js文件 
-
-// 请输入你的姓名：            
-// 请输入考试日期：            
-
-// 1. 这里创建了一个不完整的记事本数据模型，补充完成数据模型的创建。
-// 2. 根据该数据模型，使用hifive框架的数据绑定等功能完成题目要求。
-// 3. 根据自己的编程习惯以及hifive代码规范书写代码。（可新建新的js文件）
-
-
-(function() {
-
-    // dataManager
-    var notePadManager = h5.core.data.createManager('NotePadManager');
-
-    // dataModel
-    var notePadModel = notePadManager.createModel({
-        name: 'NodePadModel',
-        schema: {
-            // ID
-            id: {
-                id: true,
-                type: 'integer'
-            },
-            // 状态（0：未完成，1：已完成，2：已取消）
-            status: {
-                type: 'integer'
-            },
-            // 内容
-            content: {
-                type: 'string'
-            }
-
-            // 添加属性，完成适当的数据模型，实现题目要求。
-
-
-
-        }
-    });
-
-    // 公开
-    h5.u.obj.expose('test.model', {
-        NodePadModel: notePadModel
-    });
-
-})();
