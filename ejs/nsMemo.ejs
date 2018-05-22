@@ -1,0 +1,17 @@
+<script type="text/ejs" id="nsMemoTodoListEjs">
+<div data-h5-loop-context="nsMemoTodoList">
+    <div class="nsMemoInfoRowDiv">
+        <div class="nsMemoChkDiv">
+            <input type="hidden" data-h5-bind="id" />
+            <input type="checkbox" name="todoChkBox" />
+            <input type="hidden" data-h5-bind="content" />
+        </div>
+        <div class="nsMemoDetailDiv">
+            <span data-h5-bind="content"></span>
+        </div>
+        <div class="nsMemoCancelBtnDiv">
+            <input type="button" name="todoBtn" value="取消" class="nsMemoCancelBtn" />
+        </div>
+    </div>
+</div>
+</script>
