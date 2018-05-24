@@ -52,8 +52,9 @@
     border-bottom: 1.5px solid white;
     width: 12px;
     height: 12px;
-    transform: rotate(45deg);
+    transform: rotate(225deg);
     margin-left: 470px;
+    cursor: pointer;
 }
 
 .nsMemoInfoRowDiv {
@@ -81,7 +82,6 @@
     width: 85%;
 }
 
-
 .nsMemoCancelBtnDiv {
     display: inline-block;
     text-align: right;
@@ -94,4 +94,12 @@
     border-radius: 5px;
     border: 1px solid #DCDCDC;
     margin-bottom: 3px;
+}
+
+.cancelContent {
+    text-decoration: line-through;
+}
+
+.nsMemoListDiv {
+    transition: all 1s ease;
 }

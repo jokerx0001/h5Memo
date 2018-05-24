@@ -3,13 +3,13 @@
  */
 
 // todoListShowFlg
-var todoListShowFlg = false;
+var todoListShowFlg = true;
 
 // doneFlg
-var doneListShowFlg = false;
+var doneListShowFlg = true;
 
 // cancleFlg
-var cancleListShowFlg = false;
+var cancleListShowFlg = true;
 
 var obsAryTodo = h5.core.data.createObservableArray();
 
@@ -91,8 +91,8 @@ var nsMemoLogic = {
 
         for (var i = 0; i < obserArr.length; i++) {
 
-            var item = obserArr[i];
-            var itemId = item.get('id');
+            var item = obserArr.get(i);
+            var itemId = item.id;
 
             if (itemId === parseInt(id, 10)) {
                 obserArr.splice(i, 1);
@@ -103,13 +103,13 @@ var nsMemoLogic = {
 
     addNewMemo: function(memo) {
 
+        maxId++;
+
         obsAryTodo.push({
             id: maxId,
             status: 0,
             content: memo
-        });
-
-        maxId++;
+        }); 
     },
 
     chkTodoItem: function(obj) {
@@ -127,12 +127,12 @@ var nsMemoLogic = {
 
     cancleItem: function(obj) {
 
-        var tempId = obj.prev().val();
+        var tempId = obj.parent().prev().prev().children().val();
 
         obsAryCancle.push({
             id: parseInt(tempId, 10),
             status: 2,
-            content: obj.next().val()
+            content: obj.parent().prev().prev().children().eq(2).val()
         });
 
         this.__remove(tempId, obsAryTodo);
@@ -179,22 +179,32 @@ $(function() {
 
             // view bind
             this.view.append("#nsMemoTodoInfoList", "nsMemoTodoListEjs");
+            this.view.append("#nsMemoDoneInfoList", "nsMemoDoneListEjs");
+            this.view.append("#nsMemoDeleteInfoList", "nsMemoCancleListEjs");
 
             // data bind
             h5.core.view.bind($("#nsMemoTodoInfoList"), {
                 nsMemoTodoList: obsAryTodo
             });
 
-            h5.core.view.bind($("#nsMemoTodoDiv"), {
+            h5.core.view.bind($("#todoCntSpan"), {
                 todoCntVal: todoCnt
             });
 
             h5.core.view.bind($("#nsMemoDoneInfoList"), {
-                nsMemoTodoList: obsAryTodo
+                nsMemoDoneList: obsAryDone
+            });
+
+            h5.core.view.bind($("#doneCntSpan"), {
+                doneCntVal: todoCnt
             });
 
             h5.core.view.bind($("#nsMemoDeleteInfoList"), {
-                nsMemoTodoList: obsAryTodo
+                nsMemoCancelList: obsAryCancle
+            });
+
+            h5.core.view.bind($("#cancelCntSpan"), {
+                cancleCntVal: todoCnt
             });
         },
         __init: function() {
@@ -202,13 +212,76 @@ $(function() {
             this.nsMemoLogic.getnsMemoInfo();
         },
         "#memoSubmitBtn click": function() {
-            
-            this.nsMemoLogic.addNewMemo($("#memoInput").val());
+         
+            if ($("#memoInput").val() !== "") {
+                this.nsMemoLogic.addNewMemo($("#memoInput").val());
+            }
         },
         "input[name='todoChkBox'] click": function(context, $el) {
             
             this.nsMemoLogic.chkTodoItem($el);
         },
+        "input[name='todoBtn'] click": function(context, $el) {
+            
+            this.nsMemoLogic.cancleItem($el);
+        },
+        "input[name='doneChkBox'] click": function(context, $el) {
+            
+            this.nsMemoLogic.chkDoneItem($el);
+        },
+        "input[name='restoreBtn'] click": function(context, $el) {
+            
+            this.nsMemoLogic.restoreItem($el);
+        },
+        "#todoArrow click": function() {
+
+            if (todoListShowFlg) {
+
+                todoListShowFlg = false;
+                $("#nsMemoTodoInfoList").css("display", "none");
+                $("#todoArrow").css("transform", "rotate(45deg)");
+            } else {
+
+                todoListShowFlg = true;
+                $("#nsMemoTodoInfoList").css("display", "block");
+                $("#todoArrow").css("transform", "rotate(225deg)");
+            }
+            
+        },
+        "#doneArrow click": function() {
+
+            if (doneListShowFlg) {
+
+                doneListShowFlg = false;
+                $("#nsMemoDoneInfoList").css("display", "none");
+                $("#doneArrow").css("transform", "rotate(45deg)");
+            } else {
+
+                doneListShowFlg = true;
+                $("#nsMemoDoneInfoList").css("display", "block");
+                $("#doneArrow").css("transform", "rotate(225deg)");
+            }
+            
+        },
+        "#cancleArrow click": function() {
+
+            if (cancleListShowFlg) {
+
+                cancleListShowFlg = false;
+                $("#nsMemoDeleteInfoList").css("display", "none");
+                $("#cancleArrow").css("transform", "rotate(45deg)");
+            } else {
+
+                cancleListShowFlg = true;
+                $("#nsMemoDeleteInfoList").css("display", "block");
+                $("#cancleArrow").css("transform", "rotate(225deg)");
+            }
+            
+        },
+        "#memoSaveBtn click": function() {
+
+            alert("保存成功");
+        }
     };
 
     h5.core.controller("#nsMemoInfoContainer", nsMemoController);

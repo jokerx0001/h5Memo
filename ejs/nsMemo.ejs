@@ -15,3 +15,33 @@
     </div>
 </div>
 </script>
+<script type="text/ejs" id="nsMemoDoneListEjs">
+<div data-h5-loop-context="nsMemoDoneList">
+    <div class="nsMemoInfoRowDiv">
+        <div class="nsMemoChkDiv">
+            <input type="hidden" data-h5-bind="id" />
+            <input type="checkbox" name="doneChkBox" />
+            <input type="hidden" data-h5-bind="content" />
+        </div>
+        <div class="nsMemoDetailDiv">
+            <span data-h5-bind="content"></span>
+        </div>
+    </div>
+</div>
+</script>
+<script type="text/ejs" id="nsMemoCancleListEjs">
+<div data-h5-loop-context="nsMemoCancelList">
+    <div class="nsMemoInfoRowDiv">
+        <div class="nsMemoChkDiv">
+        </div>
+        <div class="nsMemoDetailDiv">
+            <span class="cancelContent" data-h5-bind="content"></span>
+        </div>
+        <div class="nsMemoCancelBtnDiv">
+            <input type="hidden" data-h5-bind="id" />
+            <input type="button" name="restoreBtn" value="恢复" class="nsMemoCancelBtn" />
+            <input type="hidden" data-h5-bind="content" />
+        </div>
+    </div>
+</div>
+</script>

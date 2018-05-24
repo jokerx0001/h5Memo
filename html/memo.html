@@ -19,32 +19,32 @@
             <button id="memoSubmitBtn" class="memoSubmitBtn">提交</button>
         </div>
         <div class="nsMemoInfoSub">
-            <div class="nsMemoInfoSubTitle" id="nsMemoTodoDiv">
+            <div class="nsMemoInfoSubTitle">
                 <span>未完成</span>
-                <span data-h5-bind="todoCntVal"></span>
+                <span id="todoCntSpan" data-h5-bind="todoCntVal"></span>
                 <span>(件)</span>
             </div>
             <div class="bottomArrowDiv" id="todoArrow"></div>
         </div>
-        <div id="nsMemoTodoInfoList"></div>
+        <div id="nsMemoTodoInfoList" class="nsMemoListDiv"></div>
         <div class="nsMemoInfoSub">
             <div class="nsMemoInfoSubTitle">
                 <span>已完成</span>
-                <span data-h5-bind="doneCntVal"></span>
+                <span id="doneCntSpan" data-h5-bind="doneCntVal"></span>
                 <span>(件)</span>
             </div>
             <div class="bottomArrowDiv" id="doneArrow"></div>
         </div>
-        <div id="nsMemoDoneInfoList"></div>
+        <div id="nsMemoDoneInfoList" class="nsMemoListDiv"></div>
         <div class="nsMemoInfoSub">
             <div class="nsMemoInfoSubTitle">
                 <span>已取消</span>
-                <span data-h5-bind="cancleCntVal"></span>
+                <span id="cancelCntSpan" data-h5-bind="cancleCntVal"></span>
                 <span>(件)</span>
             </div>
             <div class="bottomArrowDiv" id="cancleArrow"></div>
         </div>
-        <div id="nsMemoDeleteInfoList"></div>
+        <div id="nsMemoDeleteInfoList" class="nsMemoListDiv"></div>
         <div>
             <button id="memoSaveBtn" class="memoSaveBtn">保存</button>
         </div>
